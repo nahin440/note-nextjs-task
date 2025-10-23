@@ -20,16 +20,18 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Note ID is required' }, { status: 400 });
     }
 
-    // Get all notes for current user
+    
     const allUserNotes = await Note.find({ userId: session.user.id });
     
-    // Try to find the specific note
+   
+    
+
     const specificNote = await Note.findOne({
       _id: noteId,
       userId: session.user.id
     });
 
-    // Try to find by ID only (without user filter)
+
     const noteById = await Note.findById(noteId);
 
     return NextResponse.json({

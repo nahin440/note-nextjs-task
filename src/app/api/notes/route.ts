@@ -1,4 +1,4 @@
-// src/app/api/notes/route.ts
+
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
@@ -62,7 +62,8 @@ export async function GET(request: Request) {
 
     let queryBuilder = Note.find(query).sort(sortOptions);
     
-    // Limit results if specified
+    
+    
     if (limit) {
       queryBuilder = queryBuilder.limit(parseInt(limit));
     }

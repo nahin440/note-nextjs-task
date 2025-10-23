@@ -6,15 +6,18 @@ import Note from '@/models/Note';
 
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ id: string }> } // params is now a Promise
+  { params }: { params: Promise<{ id: string }> } 
+  
 ) {
   try {
-    // Await the params Promise first
+    
+
     const { id } = await params;
     
     console.log('🔍 === INDIVIDUAL NOTE API DEBUG START ===');
     
-    // Get session
+    
+
     const session = await getServerSession(authOptions);
     console.log('👤 Session exists:', !!session);
     console.log('👤 Session user ID:', session?.user?.id);
@@ -27,11 +30,16 @@ export async function GET(
     console.log('📝 Looking for note ID:', id);
     console.log('👤 For user ID:', session.user.id);
 
-    // Connect to database
+    
+
+
+
     await connectDB();
     console.log('✅ Database connected');
 
-    // First, let's just try to find ANY note with this ID to see if it exists
+    
+
+
     console.log('🔎 Trying to find any note with this ID...');
     const anyNote = await Note.findById(id);
     console.log('📝 FindById result:', anyNote ? 'FOUND' : 'NOT FOUND');
@@ -47,7 +55,9 @@ export async function GET(
       console.log('   - Users match:', anyNote.userId.toString() === session.user.id);
     }
 
-    // Now try the actual query we need
+    
+
+
     console.log('🔎 Trying main query with userId filter...');
     const note = await Note.findOne({
       _id: id,
@@ -62,7 +72,9 @@ export async function GET(
       console.log('   - Title:', note.title);
       console.log('   - User ID:', note.userId.toString());
       
-      // Return the note data
+      
+
+
       return NextResponse.json({ 
         note: {
           _id: note._id.toString(),
@@ -77,7 +89,8 @@ export async function GET(
     } else {
       console.log('❌ Note not found with userId filter');
       
-      // Get all user notes to see what we have
+      
+
       console.log('🔎 Getting all notes for user...');
       const userNotes = await Note.find({ userId: session.user.id });
       console.log(`📝 User has ${userNotes.length} notes:`);
@@ -92,7 +105,8 @@ export async function GET(
   } catch (error) {
     console.error('💥 ERROR in individual note API:');
     
-    // More detailed error logging
+    
+
     if (error instanceof Error) {
       console.error('💥 Error name:', error.name);
       console.error('💥 Error message:', error.message);
@@ -185,7 +199,8 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    // Await the params Promise first
+    
+
     const { id } = await params;
     
     console.log('🗑️ === DELETE NOTE API ===');

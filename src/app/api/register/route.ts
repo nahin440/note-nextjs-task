@@ -1,4 +1,4 @@
-// app/api/register/route.ts
+
 import { NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import User from '@/models/User';
@@ -23,7 +23,8 @@ export async function POST(request: Request) {
 
     await connectDB();
 
-    // Check if user already exists
+    
+
     const existingUser = await User.findOne({ email: email.toLowerCase() });
     if (existingUser) {
       return NextResponse.json(
@@ -32,7 +33,8 @@ export async function POST(request: Request) {
       );
     }
 
-    // Create new user
+    
+    
     const user = await User.create({
       email: email.toLowerCase(),
       password,

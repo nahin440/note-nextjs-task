@@ -14,7 +14,8 @@ export async function GET() {
     await connectDB();
     console.log('✅ Database connected in simple test');
 
-    // Just get the first note to test the connection
+    
+    
     const notes = await Note.find({ userId: session.user.id }).limit(1);
     
     return NextResponse.json({
